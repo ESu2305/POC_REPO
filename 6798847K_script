@@ -1,1 +1,10 @@
-
+#!/bin/bash
+apt-get update
+puppet resource package git ensure=present
+puppet resource package apache2 ensure=present
+puppet resource service apache2 ensure=running
+puppet resource file /tmp/6798847K/work ensure=absent force=true
+puppet resource file /tmp/6798847K/work ensure=directory
+cd /6798847K/work
+git clone https://github.com/ESu2305/POC_REPO.git
+cp -p /tmp/clone/POC_REPO/index.html /var/www/html
