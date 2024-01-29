@@ -33,8 +33,14 @@ pipeline {
           stage('ST4_6798847K') {
           steps {
             echo('ST4_6798847K: TEST server’s testing result has been inspected')
-                
-          }
+                script {
+                    s4Input = input(id: 'S4Input', message: 'Proceed Production or RollBack Test?', parameters: [booleanParam(defaultValue: true, description: 'Click Proceed or Rpllback', name: 'Proceed')])
+                    if (s4Input) {
+                        env.DECISION = 'proceed'
+                    } else {
+                        env.DECISION = 'rollback'
+                    }
+            }
           }
           stage('ST5_6798847K') {
           when {
@@ -53,8 +59,14 @@ pipeline {
           }
           stage('ST6_6798847K') {
           steps {
-            echo 'Completed updating to Production Container'
-          }
+            script {
+                    if (env.DECISION == 'proceed') {
+                        echo "ST6_6798847K: Production server is updated"
+                    } else {
+                        echo "ST6_6798847K: TEST server is rollback"
+                    }
+                }
+             }
           }
       }
 }
