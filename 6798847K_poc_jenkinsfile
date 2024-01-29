@@ -35,11 +35,11 @@ pipeline {
                     if (env.DECISION == 'proceed') {
                         echo "ST5_6798847K: Proceed to Production Phase"
                         sh '''#!/bin/bash
-                        puppet resource file /tmp/clone ensure=absent force=true;
-                        puppet resource file /tmp/clone ensure=directory;
-	                cd /tmp/clone;
-	                git clone https://<your token>@github.com/<your repo>/devops_repo.git;
-                        targets=puppetclient1;
+                        puppet resource file /tmp/6798847K/work ensure=absent force=true;
+                        puppet resource file /tmp/6798847K/work ensure=directory;
+	                cd /6798847K/work;
+	                git clone https://github.com/ESu2305/POC_REPO.git;
+                        targets=TESTsvr6798847K;
                         locate_script='/tmp/clone/devops_repo/script_to_run';
                         bolt script run $locate_script -t $targets -u clientadm -p user123 --no-host-key-check --run-as root;
                         '''
