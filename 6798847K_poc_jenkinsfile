@@ -12,11 +12,6 @@ pipeline {
           }
           }
           stage('ST3_6798847K') {
-          when {
-                not {
-                    branch "UAT container NOT updated"
-                }
-          }
           steps {
                  sh '''#!/bin/bash
                  puppet resource file /tmp/clone ensure=absent force=true;
@@ -43,19 +38,16 @@ pipeline {
             }
           }
           stage('ST5_6798847K') {
-          when {
-                not {
-                    branch "Production container NOT updated"
-                }
-          }
           steps {
-                 sh '''#!/bin/bash
-                 targets=puppetclient2;
-                 locate_script='/tmp/clone/devops_repo/script_to_run';
-                 bolt script run $locate_script -t $targets -u clientadm -p user123 --no-host-key-check --run-as root;
-                 '''
-                 echo "Production container updated"
-          }
+                 script {
+                    if (env.DECISION == 'proceed') {
+                        echo "ST5_6798847K: Proceed to Production Phase"
+                        sh "curl –Is http://TESTsvr6798847K.localdomain|head –n 1  > /tmp/TEST-result-file"
+                    } else {
+                        echo "ST5_6798847K: Rollback Test server"
+                    }
+                }
+             }
           }
           stage('ST6_6798847K') {
           steps {
