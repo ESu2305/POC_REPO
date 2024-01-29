@@ -42,7 +42,7 @@ pipeline {
                  script {
                     if (env.DECISION == 'proceed') {
                         echo "ST5_6798847K: Proceed to Production Phase"
-                        sh "curl –Is http://TESTsvr6798847K.localdomain|head –n 1  > /tmp/TEST-result-file"
+                        bolt script run $locate_script -t $targets -u clientadm -p user123 --no-host-key-check --run-as root;
                     } else {
                         echo "ST5_6798847K: Rollback Test server"
                     }
