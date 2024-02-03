@@ -8,6 +8,7 @@ pipeline {
           }
           stage('ST2_6798847K') {
           steps {
+            
             echo('ST2_6798847K: TEST server is backup and updated')
             }
           }
