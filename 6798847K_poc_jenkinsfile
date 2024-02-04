@@ -28,7 +28,8 @@ pipeline {
                     } else {
                         env.DECISION = 'rollback'
                     }
-            }
+             }
+           }
           }
           stage('ST5_6798847K') {
           steps {
