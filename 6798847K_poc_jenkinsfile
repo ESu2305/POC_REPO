@@ -14,7 +14,7 @@ pipeline {
           }
           stage('ST3_6798847K') {
           steps {
-            sh "curl –is http://TESTsvr6798847K.localdomain|head –n 1  > /tmp/TEST-result-file"
+            sh "curl -is http://TESTsvr6798847K.localdomain|head -n 1  > /tmp/TEST-result-file"
             echo "ST3_6798847K: Test result for TEST server is generated  : TEST-result-file "
             }
           }
