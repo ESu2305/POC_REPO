@@ -8,7 +8,8 @@ pipeline {
           }
           stage('ST2_6798847K') {
           steps {
-            
+            sh 'docker rm -f BKUP-TEST-image || true'
+            sh 'docker run -d --name TESTsvr6798847K BKUP-TEST-image'
             echo('ST2_6798847K: TEST server is backup and updated')
             }
           }
